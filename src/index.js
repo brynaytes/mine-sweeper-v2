@@ -79,21 +79,21 @@ class Board extends React.Component {
                 this.setState({
                     squares: squares
                 });
-                
+
                 clearedSquares++;
 
                 //clear all zeros at once
-                if(squares[i] === 0){
+                if (squares[i] === 0) {
                     this.setState({
-                        squares: clearAllTouchingZeros(squares,i)
-                    }); 
+                        squares: clearAllTouchingZeros(squares, i)
+                    });
                 }
             }
         }
 
         this.checkForWin();
     }
-    
+
 
 
     handleRestart() {
@@ -106,7 +106,7 @@ class Board extends React.Component {
             onQuestion={() => this.question(i)}
         />;
     }
-    info(){
+    info() {
         window.alert("This is a work in progress minesweeper game built with react.js. It needs some polish, but its here for testing some ci/cd work.");
     }
     render() {
@@ -227,57 +227,57 @@ function getGoodBomblocation(array) {
 }
 
 //if zero if clicked find all other zeros
-function clearAllTouchingZeros(squares,i){
+function clearAllTouchingZeros(squares, i) {
 
 
-    let largestI = xSize * ySize -1; 
+    let largestI = xSize * ySize - 1;
     //up
     let temp, tempCoords;
 
     tempCoords = findXY(i);
 
-    temp = i-xSize;
-    if( temp >= 0   && temp <= largestI && squares[temp] !== 0 && calculateProximityToBomb(temp) === 0){
+    temp = i - xSize;
+    if (temp >= 0 && temp <= largestI && squares[temp] !== 0 && calculateProximityToBomb(temp) === 0) {
         clearedSquares++;
         squares[temp] = 0;
-        clearAllTouchingZeros(squares,temp)
+        clearAllTouchingZeros(squares, temp)
     }
     //down
-    temp = i+xSize
-    if(temp >= 0  && temp <= largestI && squares[temp] !== 0 && calculateProximityToBomb(temp) === 0){
+    temp = i + xSize
+    if (temp >= 0 && temp <= largestI && squares[temp] !== 0 && calculateProximityToBomb(temp) === 0) {
         clearedSquares++;
         squares[temp] = 0;
-        clearAllTouchingZeros(squares,temp)
+        clearAllTouchingZeros(squares, temp)
 
     }
     //left
-    temp = i-1
+    temp = i - 1
 
-    if(temp >= 0 && tempCoords[0] > 0 && temp <= largestI &&squares[temp] !== 0 && calculateProximityToBomb(temp) === 0){
+    if (temp >= 0 && tempCoords[0] > 0 && temp <= largestI && squares[temp] !== 0 && calculateProximityToBomb(temp) === 0) {
         clearedSquares++;
         squares[temp] = 0;
-        clearAllTouchingZeros(squares,temp)
+        clearAllTouchingZeros(squares, temp)
 
     }
     //right 
-    temp = i+1
+    temp = i + 1
 
-    if(temp >= 0 && tempCoords[0] < xSize-1 && temp <= largestI && squares[temp] !== 0 &&calculateProximityToBomb(temp) === 0){
+    if (temp >= 0 && tempCoords[0] < xSize - 1 && temp <= largestI && squares[temp] !== 0 && calculateProximityToBomb(temp) === 0) {
         clearedSquares++;
-        squares[temp] = 0;        
-        clearAllTouchingZeros(squares,temp)
+        squares[temp] = 0;
+        clearAllTouchingZeros(squares, temp)
 
     }
     return squares;
 }
 
 //find x y coordinates for any integer
-function findXY(i){
+function findXY(i) {
     let x, y;
-    for (y = 0; y < ySize ; y++) {
-        for ( x = 0; x < xSize; x++) {
+    for (y = 0; y < ySize; y++) {
+        for (x = 0; x < xSize; x++) {
             if (arr[y][x] == i) {
-                return [x,y];
+                return [x, y];
             }
         }
     }
